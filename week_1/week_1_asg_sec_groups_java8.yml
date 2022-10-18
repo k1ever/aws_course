@@ -1,0 +1,75 @@
+Description: Single EC2 instance stack for AWS course week_0 assignment
+
+
+Parameters:
+
+  EC2InstanceType:
+    Description: EC2 instance type configuration
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t2.small
+      - t2.medium
+
+  EC2InstanceAmiID:
+    Description: AMI identifier of the image to deploy for the EC2 instance
+    Type: String
+    Default: ami-08e2d37b6a0129927
+
+  KeyName:
+    Description: EC2 instance SSH key
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: svoitenko-key-pair
+
+
+Resources:
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      KeyName: !Ref KeyName
+      ImageId: !Ref EC2InstanceAmiID
+      InstanceType: !Ref EC2InstanceType
+      SecurityGroups:
+        - !Ref SSHSecurityGroup
+        - !Ref HTTPSecurityGroup
+      UserData:
+        Fn::Base64:
+          !Sub |
+          #!/bin/bash
+          yum update -y
+          yum install java-1.8.0-openjdk -y
+
+  SSHSecurityGroup:
+    Description: Security group to allow inbound SSH connection
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Enable SSH access via port 22
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  HTTPSecurityGroup:
+    Description: Security group to allow inbound HTTP connection
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Enable HTTP access via port 80
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+
+Outputs:
+
+  PublicIp:
+    Description: EC2 instance public IP
+    Value: !GetAtt EC2Instance.PublicIp
+
+  PublicDnsName:
+    Description: EC2 instance public DNS name
+    Value: !GetAtt EC2Instance.PublicDnsName
