@@ -17,8 +17,8 @@ resource "aws_instance" "app_server" {
   ami                  = var.instance_amiId
   instance_type        = var.instance_type
   key_name             = var.instance_key_name
+  iam_instance_profile = var.instance_profile
   security_groups      = ["HTTP_SG_Terraform", "SSH_SG_Terraform"]
-  iam_instance_profile = "s3_svoitenko-bucket-1_rwl_role"
   user_data            = <<-EOF
               #!/bin/bash
               aws s3 cp s3://${var.s3_bucket_name}/${var.file_key_s3} /home/ec2-user/${var.file_key_s3}
