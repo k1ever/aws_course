@@ -26,12 +26,6 @@ variable "instance_key_name" {
   default     = "svoitenko-key-pair"
 }
 
-variable "instance_profile" {
-  description = "EC2 instance profile role name"
-  type        = string
-  default     = "s3_svoitenko-bucket-1_rwl_role"
-}
-
 variable "s3_bucket_name" {
   description = "S3 bucket name"
   type        = string
