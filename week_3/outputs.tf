@@ -11,11 +11,9 @@ output "ec2_instance_public_dns_name" {
 output "rds_endpoint" {
   description = "RDS instance hostname"
   value       = aws_db_instance.postgres_rds.endpoint
-  sensitive   = true
 }
 
 output "rds_port" {
   description = "RDS instance port"
   value       = aws_db_instance.postgres_rds.port
-  sensitive   = true
 }

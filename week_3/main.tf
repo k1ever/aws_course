@@ -1,18 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.16"
-    }
-  }
-
-  required_version = ">= 1.2.0"
-}
-
-provider "aws" {
-  region = "us-west-2"
-}
-
 resource "aws_instance" "app_server" {
   ami                  = var.instance_amiId
   instance_type        = var.instance_type
@@ -24,7 +9,7 @@ resource "aws_instance" "app_server" {
               #!/bin/bash
 
               sudo yum update -y
-              yum install postgresql13 -y
+              sudo yum install postgresql -y
               psql --version
 
               aws s3 cp s3://${var.s3_bucket_name}/rds-script.sql /home/ec2-user/rds-script.sql
