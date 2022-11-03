@@ -1,5 +1,5 @@
-resource "aws_iam_role" "s3_access_role" {
-  name = "s3_rwl_role_terraform"
+resource "aws_iam_role" "ec2_access_role" {
+  name = "ec2_access_role_s3_dynamo_db"
   path = "/"
 
   assume_role_policy = <<EOF
@@ -21,7 +21,7 @@ resource "aws_iam_role" "s3_access_role" {
 
 resource "aws_iam_role_policy" "s3_code_bucket_access_policy" {
   name = "s3_code_bucket_access_policy"
-  role = aws_iam_role.s3_access_role.id
+  role = aws_iam_role.ec2_access_role.id
 
   policy = <<EOF
   {
@@ -54,7 +54,49 @@ resource "aws_iam_role_policy" "s3_code_bucket_access_policy" {
 EOF
 }
 
-resource "aws_iam_instance_profile" "s3_instance_profile" {
-  name = "s3_rwl_instance_profile"
-  role = aws_iam_role.s3_access_role.name
+resource "aws_iam_role_policy" "dynamodb_table_access_policy" {
+  name = "dynamodb_table_access_policy"
+  role = aws_iam_role.ec2_access_role.id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ListAndDescribe",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:List*",
+                "dynamodb:DescribeReservedCapacity*",
+                "dynamodb:DescribeLimits",
+                "dynamodb:DescribeTimeToLive"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "SpecificTable",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:BatchGet*",
+                "dynamodb:DescribeStream",
+                "dynamodb:DescribeTable",
+                "dynamodb:Get*",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:BatchWrite*",
+                "dynamodb:CreateTable",
+                "dynamodb:Delete*",
+                "dynamodb:Update*",
+                "dynamodb:PutItem"
+            ],
+            "Resource": "arn:aws:dynamodb:*:*:table/${var.dynamodb_table_name}"
+        }
+    ]
+}
+EOF
+}
+
+resource "aws_iam_instance_profile" "ec2_instance_profile" {
+  name = "ec_instance_profile_s3_dynamodb"
+  role = aws_iam_role.ec2_access_role.name
 }

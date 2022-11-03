@@ -10,10 +10,12 @@ resource "aws_instance" "app_server" {
 
               sudo yum update -y
               sudo yum install postgresql -y
-              psql --version
 
               aws s3 cp s3://${var.s3_bucket_name}/rds-script.sql /home/ec2-user/rds-script.sql
               chown ec2-user rds-script.sql
+
+              aws s3 cp s3://${var.s3_bucket_name}/dynamodb-script.sh /home/ec2-user/dynamodb-script.sh
+              chown ec2-user dynamodb-script.sh
   EOF
 
   tags = {

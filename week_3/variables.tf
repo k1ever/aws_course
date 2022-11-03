@@ -58,3 +58,10 @@ variable "rds_default_user_password" {
   type        = string
   default     = "testpwd1"
 }
+
+# DynamoDB params
+variable "dynamodb_table_name" {
+  description = "DynamoDB table name"
+  type        = string
+  default     = "aws_students"
+}

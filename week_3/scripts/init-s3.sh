@@ -9,3 +9,4 @@ aws s3api put-bucket-versioning --bucket $BUCKET_NAME --versioning-configuration
 
 # File copying from local machine to the S3 bucket
 aws s3 cp rds-script.sql s3://$BUCKET_NAME/
+aws s3 cp dynamodb-script.sh s3://$BUCKET_NAME/
