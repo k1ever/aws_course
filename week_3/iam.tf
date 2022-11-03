@@ -23,7 +23,7 @@ resource "aws_iam_role_policy" "s3_code_bucket_access_policy" {
   name = "s3_code_bucket_access_policy"
   role = aws_iam_role.ec2_access_role.id
 
-  policy = <<EOF
+  policy = <<-EOF
   {
     "Version": "2012-10-17",
     "Statement": [
@@ -58,7 +58,7 @@ resource "aws_iam_role_policy" "dynamodb_table_access_policy" {
   name = "dynamodb_table_access_policy"
   role = aws_iam_role.ec2_access_role.id
 
-  policy = <<EOF
+  policy = <<-EOF
   {
     "Version": "2012-10-17",
     "Statement": [
@@ -92,7 +92,7 @@ resource "aws_iam_role_policy" "dynamodb_table_access_policy" {
             "Resource": "arn:aws:dynamodb:*:*:table/${var.dynamodb_table_name}"
         }
     ]
-}
+  }
 EOF
 }
 
