@@ -2,7 +2,7 @@
 variable "instance_name" {
   description = "Value of the Name tag for the EC2 instance"
   type        = string
-  default     = "svtnk-ec2-s3-instance"
+  default     = "svtnk-ec2-instance"
 }
 
 variable "instance_type" {

@@ -16,6 +16,7 @@ resource "aws_instance" "app_server" {
 
               aws s3 cp s3://${var.s3_bucket_name}/dynamodb-script.sh /home/ec2-user/dynamodb-script.sh
               chown ec2-user dynamodb-script.sh
+              sudo chmod +x dynamodb-script.sh
   EOF
 
   tags = {
