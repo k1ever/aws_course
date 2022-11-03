@@ -2,21 +2,21 @@ resource "aws_iam_role" "ec2_access_role" {
   name = "ec2_access_role_s3_dynamo_db"
   path = "/"
 
-  assume_role_policy = <<EOF
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-          {
-              "Sid": "",
-              "Effect": "Allow",
-              "Principal": {
-                 "Service": "ec2.amazonaws.com"
-              },
-              "Action": "sts:AssumeRole"
-          }
-      ]
-    }
-  EOF
+  assume_role_policy = <<-EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+               "Service": "ec2.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+  }
+EOF
 }
 
 resource "aws_iam_role_policy" "s3_code_bucket_access_policy" {

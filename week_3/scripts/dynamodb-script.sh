@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Declaring bucket name
+# Declaring DynamoDB table name
 TABLE_NAME="aws_students"
 
 # List tables
