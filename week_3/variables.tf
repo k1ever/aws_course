@@ -1,7 +1,8 @@
+# EC2 instance params
 variable "instance_name" {
   description = "Value of the Name tag for the EC2 instance"
   type        = string
-  default     = "svtnk_ec2_s3_instance"
+  default     = "svtnk-ec2-s3-instance"
 }
 
 variable "instance_type" {
@@ -26,8 +27,34 @@ variable "instance_key_name" {
   default     = "svoitenko-key-pair"
 }
 
+# S3 bucket params
 variable "s3_bucket_name" {
   description = "S3 bucket name"
   type        = string
   default     = "svoitenko-bucket-week-3"
+}
+
+# RDS params
+variable "rds_identifier" {
+  description = "Value of the identifier name for the RDS instance"
+  type        = string
+  default     = "postgres-rds-terraform"
+}
+
+variable "rds_allocated_storage" {
+  description = "RDS allocated storage value in GBs"
+  type        = number
+  default     = 20
+}
+
+variable "rds_default_username" {
+  description = "Name of the default RDS user"
+  type        = string
+  default     = "postgres"
+}
+
+variable "rds_default_user_password" {
+  description = "Default RDS user password"
+  type        = string
+  default     = "testpwd1"
 }

@@ -24,33 +24,33 @@ resource "aws_iam_role_policy" "s3_code_bucket_access_policy" {
   role = aws_iam_role.s3_access_role.id
 
   policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListAllMyBuckets",
-                "s3:GetBucketLocation"
-            ],
-            "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": ["s3:ListBucket"],
-      "Resource": ["arn:aws:s3:::${var.s3_bucket_name}"]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:PutObject",
-        "s3:GetObject",
-        "s3:DeleteObject"
-      ],
-      "Resource": ["arn:aws:s3:::${var.s3_bucket_name}/*"]
-    }
-  ]
-}
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+              "Effect": "Allow",
+              "Action": [
+                  "s3:ListAllMyBuckets",
+                  "s3:GetBucketLocation"
+              ],
+              "Resource": "*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": ["s3:ListBucket"],
+        "Resource": ["arn:aws:s3:::${var.s3_bucket_name}"]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:DeleteObject"
+        ],
+        "Resource": ["arn:aws:s3:::${var.s3_bucket_name}/*"]
+      }
+    ]
+  }
 EOF
 }
 
